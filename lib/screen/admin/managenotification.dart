@@ -115,8 +115,8 @@ class _ManageNotificationScreenState extends State<ManageNotificationScreen> {
                       ),
                       ...userController.users?.map((user) {
                             return DropdownMenuItem(
-                              value: user?.userId,
-                              child: Text(user?.name ?? 'Unknown'),
+                              value: user.userId,
+                              child: Text(user.email ?? 'Unknown'),
                             );
                           }) ??
                           [],

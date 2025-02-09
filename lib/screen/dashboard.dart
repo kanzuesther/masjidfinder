@@ -3,6 +3,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:masjidfinder/constants.dart';
+import 'package:masjidfinder/database/user_db/user_controller.dart';
+import 'package:masjidfinder/screen/map_screen.dart';
+import 'package:masjidfinder/screen/prayer_times_screen.dart';
+import 'package:masjidfinder/screen/qibla_screen.dart';
+import 'package:masjidfinder/screen/quran_screen.dart';
+import 'package:masjidfinder/services/location_service.dart';
+import 'package:provider/provider.dart';
 
 @RoutePage(name: 'DashBoardScreenRoute')
 class DashboardPage extends StatefulWidget {
@@ -13,9 +20,10 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  final String userName = "Mohammed";
-  final String userLocation = "Cairo, Egypt";
+
   final String currentDate = DateFormat('EEEE, MMMM d').format(DateTime.now());
+   String userName = "loading";
+  String userLocation = "Loading location...";
 
   final List<String> morningQuotes = [
     "The best of you are those who learn the Quran and teach it.",
@@ -25,8 +33,62 @@ class _DashboardPageState extends State<DashboardPage> {
     "When you ask, ask Allah, and when you seek help, seek help from Allah."
   ];
 
+  // Update navigation methods to use Navigator
+  void _navigateToMap() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const MosqueMapScreen()),
+    );
+  }
+
+  void _navigateToPrayerTimes() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const PrayerTimesScreen()),
+    );
+  }
+
+  void _navigateToQibla() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const QiblaScreen()),
+    );
+  }
+
+  void _navigateToQuran() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const QuranScreen()),
+    );
+  }
+    Future<void> _getUserLocation() async {
+    try {
+      final locationService = LocationService();
+      final position = await locationService.getCurrentLocation();
+      final locationName = await locationService.getLocationName(
+        position.latitude,
+        position.longitude,
+      );
+      setState(() {
+        userLocation = locationName;
+      });
+    } catch (e) {
+      setState(() {
+        userLocation = "Unable to get location";
+      });
+    }
+  }
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getUserLocation();
+  }
   @override
   Widget build(BuildContext context) {
+    final user=context.read<UserController>().currentUser;
+
+      userName=user!.email.toString();
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SingleChildScrollView(
@@ -199,21 +261,25 @@ class _DashboardPageState extends State<DashboardPage> {
                         icon: Icons.mosque,
                         title: "Find Mosque",
                         color: Colors.blue,
+                        onTap: _navigateToMap,
                       ),
                       _buildActionCard(
                         icon: Icons.access_time,
                         title: "Prayer Times",
                         color: Colors.green,
+                        onTap: _navigateToPrayerTimes,
                       ),
                       _buildActionCard(
                         icon: Icons.explore,
                         title: "Qibla Direction",
                         color: Colors.orange,
+                        onTap: _navigateToQibla,
                       ),
                       _buildActionCard(
                         icon: Icons.book,
                         title: "Quran Reading",
                         color: Colors.purple,
+                        onTap: _navigateToQuran,
                       ),
                     ],
                   ),
@@ -271,30 +337,34 @@ class _DashboardPageState extends State<DashboardPage> {
     required IconData icon,
     required String title,
     required Color color,
+    required VoidCallback onTap,
   }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            size: 40,
-            color: color,
-          ),
-          const SizedBox(height: 10),
-          Text(
-            title,
-            style: TextStyle(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              icon,
+              size: 40,
               color: color,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
             ),
-          ),
-        ],
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: TextStyle(
+                color: color,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -26,13 +26,13 @@ class Admindasboard extends StatelessWidget {
               AutoRouter.of(context).push(ManageNotificationRoute());
             },
           ),
-          ProfileMenuListTile(
-            text: "Mutuelle",
-            svgSrc: "assets/icons/Accessories.svg",
-            press: () {
-              // AutoRouter.of(context).push(ManageMutuelleRoute());
-            },
-          ),
+          // ProfileMenuListTile(
+          //   text: "Mutuelle",
+          //   svgSrc: "assets/icons/Accessories.svg",
+          //   press: () {
+          //     // AutoRouter.of(context).push(ManageMutuelleRoute());
+          //   },
+          // ),
           ProfileMenuListTile(
             text: "Users",
             svgSrc: "assets/icons/Accessories.svg",
@@ -40,22 +40,22 @@ class Admindasboard extends StatelessWidget {
               AutoRouter.of(context).push(UsersDashboardRoute());
             },
           ),
-          const SizedBox(height: defaultPadding),
-          DividerListTileWithTrilingText(
-            svgSrc: "assets/icons/Notification.svg",
-            title: "Notification",
-            trilingText: "Off",
-            press: () {
-              //Navigator.pushNamed(context, enableNotificationScreenRoute);
-            },
-          ),
-          ProfileMenuListTile(
-            text: "Preferences",
-            svgSrc: "assets/icons/Preferences.svg",
-            press: () {
-              //Navigator.pushNamed(context, preferencesScreenRoute);
-            },
-          ),
+          // const SizedBox(height: defaultPadding),
+          // DividerListTileWithTrilingText(
+          //   svgSrc: "assets/icons/Notification.svg",
+          //   title: "Notification",
+          //   trilingText: "Off",
+          //   press: () {
+          //     //Navigator.pushNamed(context, enableNotificationScreenRoute);
+          //   },
+          // ),
+          // ProfileMenuListTile(
+          //   text: "Preferences",
+          //   svgSrc: "assets/icons/Preferences.svg",
+          //   press: () {
+          //     //Navigator.pushNamed(context, preferencesScreenRoute);
+          //   },
+          // ),
         ],
       ),
     );

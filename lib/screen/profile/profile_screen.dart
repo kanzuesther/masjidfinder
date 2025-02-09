@@ -51,13 +51,13 @@ class ProfileScreen extends StatelessWidget {
           //     //Navigator.pushNamed(context, walletScreenRoute);
           //   },
           // ),
-          // ProfileMenuListTile(
-          //   text: "Addminitration",
-          //   svgSrc: "assets/icons/Accessories.svg",
-          //   press: () {
-          //     AutoRouter.of(context).push(AdminDasbBoardRoute());
-          //   },
-          // ),
+          ProfileMenuListTile(
+            text: "Addminitration",
+            svgSrc: "assets/icons/Accessories.svg",
+            press: () {
+              AutoRouter.of(context).push(AdminDasbBoardRoute());
+            },
+          ),
           const SizedBox(height: defaultPadding),
           Padding(
             padding: const EdgeInsets.symmetric(

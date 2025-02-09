@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:masjidfinder/routes/app_router.dart';
 
-import 'database/history/history_controller.dart';
 import 'database/notifcation/notification_controller.dart';
 import 'database/user_db/user_controller.dart';
 import 'firebase_options.dart';
@@ -19,7 +18,6 @@ void main() async{
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => UserController()),
-        ChangeNotifierProvider(create: (_) => HistoryController()),
         ChangeNotifierProvider(create: (_) => NotificationController()),
         // ChangeNotifierProvider(create: (_) => MutuelleController()),
         // ChangeNotifierProvider(create: (_) => CreditRequestController()),

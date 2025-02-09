@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:masjidfinder/screen/AssistantScreen.dart';
 import 'package:masjidfinder/screen/dashboard.dart';
-import 'package:masjidfinder/screen/history.dart';
 import 'package:masjidfinder/screen/map_screen.dart';
 import 'package:masjidfinder/screen/profile/profile_screen.dart';
 

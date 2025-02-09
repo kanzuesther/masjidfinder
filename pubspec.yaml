@@ -47,6 +47,8 @@ dependencies:
   latlng: ^2.0.7
   flutter_map: ^8.0.0
   google_maps_flutter: ^2.10.0
+  geocoding: ^3.0.0
+  geolocator: ^13.0.2
 
 dev_dependencies:
   flutter_test:
@@ -77,6 +79,7 @@ flutter:
     - assets/icons/
     - assets/Illustration/
     - assets/screens/
+    - assets/mosque.json
 
   fonts:
     - family: Plus Jakarta

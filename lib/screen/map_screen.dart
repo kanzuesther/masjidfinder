@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+
+import 'package:logger/logger.dart';
 
 class MosqueMapScreen extends StatefulWidget {
   const MosqueMapScreen({super.key});
@@ -12,7 +15,7 @@ class MosqueMapScreen extends StatefulWidget {
 
 class _MosqueMapScreenState extends State<MosqueMapScreen> {
   late GoogleMapController _mapController;
-  final LatLng _initialPosition = LatLng(24.0, 45.0); // Center of Saudi Arabia
+  final LatLng _initialPosition = LatLng(3.8480, 11.5021);
   Set<Marker> _markers = {};
 
   @override
@@ -21,28 +24,43 @@ class _MosqueMapScreenState extends State<MosqueMapScreen> {
     _fetchMosqueLocations();
   }
 
-  Future<void> _fetchMosqueLocations() async {
-    const String apiUrl = 'https://your-backend-api.com/mosques';
-    final response = await http.get(Uri.parse(apiUrl));
 
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      setState(() {
-        _markers = Set<Marker>.from(
-          data['mosques'].map((mosque) {
-            return Marker(
-              markerId: MarkerId(mosque['name']),
-              position: LatLng(mosque['lat'], mosque['lng']),
-              icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
-              infoWindow: InfoWindow(title: mosque['name']),
-            );
-          }),
-        );
-      });
-    } else {
-      throw Exception('Failed to load mosque locations');
+Future<void> _fetchMosqueLocations() async {
+  try {
+    final log = Logger();
+    log.d('Loading mosques.json from assets');
+    
+    final String response = await rootBundle.loadString('assets/mosque.json');
+    log.d('JSON loaded successfully');
+    
+    final data = jsonDecode(response);
+    log.d('JSON parsed successfully');
+    
+    if (data['mosques'] == null) {
+      log.e('No mosques found in JSON data');
+      return;
     }
+    
+    log.d('Found ${data['mosques'].length} mosques in JSON');
+    
+    setState(() {
+      _markers = Set<Marker>.from(
+        data['mosques'].map((mosque) {
+          log.d('Creating marker for ${mosque['name']} at (${mosque['lat']}, ${mosque['lng']})');
+          return Marker(
+            markerId: MarkerId(mosque['name']),
+            position: LatLng(mosque['lat'], mosque['lng']),
+            icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+            infoWindow: InfoWindow(title: mosque['name']),
+          );
+        }),
+      );
+      log.d('Total markers created: ${_markers.length}');
+    });
+  } catch (e) {
+    Logger().e('Error loading mosques: $e');
   }
+}
 
   void _zoomIn() {
     _mapController.animateCamera(CameraUpdate.zoomIn());
@@ -58,9 +76,12 @@ class _MosqueMapScreenState extends State<MosqueMapScreen> {
       body: Stack(
         children: [
           GoogleMap(
+            myLocationButtonEnabled: true,
+            myLocationEnabled: true,
+            mapToolbarEnabled: false,
             initialCameraPosition: CameraPosition(
               target: _initialPosition,
-              zoom: 6.0,
+              zoom: 12.0,
             ),
             markers: _markers,
             onMapCreated: (controller) {
