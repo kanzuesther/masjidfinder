@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "456255641007",
+    "project_id": "masjidfinder-19822",
+    "storage_bucket": "masjidfinder-19822.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456255641007:android:64c85632f41a327f784b5a",
+        "android_client_info": {
+          "package_name": "com.example.masjidfinder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIOsUFnFcKxZi7Qwhis0MgIbLvp8LAiLY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
