@@ -35,9 +35,7 @@ class UserServices {
           'userId': userId,
         });
 
-        const snackBar = SnackBar(
-          content: Text("Creation successful"),
-        );
+     
         return true;
       } else {
         print('Failed to create user: User is null');
@@ -108,9 +106,7 @@ class UserServices {
         // Example: Upload the file to Firebase Storage and save the URL in Firestore
       }
 
-      const snackBar = SnackBar(
-        content: Text("Update successful"),
-      );
+     
       return true;
     } catch (e) {
       print('Error updating user: $e');

@@ -76,7 +76,7 @@ class _EditAccountScreenState extends State<EditAccountScreen> {
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
               onPressed: () {
-                var updateUser = database.updateUser(
+               database.updateUser(
                     profile: uploadedImage, userId: userId.toString());
               },
               style: IconButton.styleFrom(

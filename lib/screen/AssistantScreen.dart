@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:masjidfinder/constants.dart';
-import '../theme/color.dart';
 
 class AssistantScreen extends StatefulWidget {
   const AssistantScreen({super.key});

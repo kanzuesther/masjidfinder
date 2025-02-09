@@ -19,8 +19,7 @@ void main() async{
       providers: [
         ChangeNotifierProvider(create: (_) => UserController()),
         ChangeNotifierProvider(create: (_) => NotificationController()),
-        // ChangeNotifierProvider(create: (_) => MutuelleController()),
-        // ChangeNotifierProvider(create: (_) => CreditRequestController()),
+
       ],
       child: App(),
     ),

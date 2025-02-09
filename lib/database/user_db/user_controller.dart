@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
-import 'package:logger/logger.dart';
 import 'package:masjidfinder/database/user_db/user_class.dart';
-import 'package:masjidfinder/database/user_db/user_service.dart';
 import 'package:masjidfinder/database/user_db/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../utility/shareprferences.dart';

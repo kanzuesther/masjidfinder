@@ -1,4 +1,3 @@
-import 'package:logger/logger.dart';
 
 
 class Users  {
@@ -22,7 +21,6 @@ class Users  {
   });
 
   factory Users.fromJson(Map<String, dynamic> json) {
-    Logger logger=Logger();
     return Users(
       userId: json['userId'].toString() ,
       email: json['email'],
